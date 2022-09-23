@@ -198,9 +198,11 @@ class DropdownFormFieldState<T> extends State<DropdownFormField>
                 isFocused: _isFocused,
                 child: this._overlayEntry != null
                     ? EditableText(
-                        style: TextStyle(fontSize: 16, color: Colors.black87),
+                        style: widget.searchTextStyle ??
+                            TextStyle(fontSize: 16, color: Colors.black87),
                         controller: _searchTextController,
-                        cursorColor: Colors.black87,
+                        cursorColor:
+                            widget.searchTextStyle?.color ?? Colors.black87,
                         focusNode: _searchFocusNode,
                         backgroundCursorColor: Colors.transparent,
                         onChanged: (str) {
