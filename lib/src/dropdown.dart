@@ -75,6 +75,9 @@ class DropdownFormField<T> extends StatefulWidget {
   /// this functon triggers on click of emptyAction button
   final Future<void> Function()? onEmptyActionPressed;
 
+  final FocusNode? widgetFocusNode;
+  final FocusNode? searchFocusNode;
+
   DropdownFormField({
     Key? key,
     required this.dropdownItemFn,
@@ -94,6 +97,8 @@ class DropdownFormField<T> extends StatefulWidget {
     this.emptyActionText = 'Create new',
     this.onEmptyActionPressed,
     this.selectedFn,
+    this.widgetFocusNode,
+    this.searchFocusNode,
   }) : super(key: key);
 
   @override
@@ -102,8 +107,8 @@ class DropdownFormField<T> extends StatefulWidget {
 
 class DropdownFormFieldState<T> extends State<DropdownFormField>
     with SingleTickerProviderStateMixin {
-  final FocusNode _widgetFocusNode = FocusNode();
-  final FocusNode _searchFocusNode = FocusNode();
+  late FocusNode _widgetFocusNode;
+  late FocusNode _searchFocusNode;
   final LayerLink _layerLink = LayerLink();
   final ValueNotifier<List<T>> _listItemsValueNotifier =
       ValueNotifier<List<T>>([]);
@@ -134,6 +139,9 @@ class DropdownFormFieldState<T> extends State<DropdownFormField>
   @override
   void initState() {
     super.initState();
+
+    _widgetFocusNode = widget.widgetFocusNode ?? FocusNode();
+    _searchFocusNode = widget.searchFocusNode ?? FocusNode();
 
     if (widget.autoFocus) _widgetFocusNode.requestFocus();
     _selectedItem = _effectiveController!.value;
