@@ -147,6 +147,9 @@ class DropdownFormFieldState<T> extends State<DropdownFormField>
     _selectedItem = _effectiveController!.value;
 
     _searchFocusNode.addListener(() {
+      if (_searchFocusNode.hasFocus) {
+        _toggleOverlay();
+      }
       if (!_searchFocusNode.hasFocus && _overlayEntry != null) {
         _removeOverlay();
       }
